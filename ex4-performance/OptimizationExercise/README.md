@@ -48,5 +48,3 @@ To run the tests, follow these steps:
    dotnet test
    ```
 
-## Contribution
-Contributions to improve the optimization of the solution are welcome. Please feel free to fork the repository and submit a pull request with your enhancements.
