@@ -1,7 +1,9 @@
 Manufacturing Simulation Workshop using GitHub Copilot
+
 In this workshop, you will create a C# (.NET 6 or greater) process simulation model for a manufacturing plant with GitHub Copilot as your AI guide and assistant. The model should be able to simulate the assembly and quality control processes of a manufacturing plant that produces a new brand of AI-enabled Micro Widgets (MWs).
 
 Objective
+
 The overall objective is to create an extensible simulation model that can be used to analyze the performance of a manufacturing process, identify bottlenecks, and optimize resource utilization. The simulation should be able to generate summary reports and metrics for both the assembly and quality control processes. The simulation model should be designed to be flexible and extensible, allowing for future enhancements and modifications. The model should also be able to handle different scenarios and configurations, such as varying the number of assembly lines, QC teams, and inspection rates.
 A complete solution would be able to run daily or weekly simulations.
 
@@ -28,6 +30,7 @@ There are 5 teams of QC Engineers, each team has 3 members working in parallel M
   - The backlog is the number of MWs that are still in the queue.
 
 Instructions and Suggestions
+
 - Design, implement, and test a C# (.NET 6 or greater) simulation model for a manufacturing process using GitHub Copilot as an AI guide and assistant.
 - Consider using GitHub code instructions to influence the suggestions Copilot generates.
 - Use NUnit for creating unit tests.
@@ -41,6 +44,7 @@ Instructions and Suggestions
 - Be creative in the design and implementation of the simulation model.
 
 Deliverables Wish List
+
 - An application that can run daily or weekly simulations of the manufacturing process, with the following features:
   - Assembly process simulation with line failures and downtime.
   - Quality control process simulation with inspection and defect logging.

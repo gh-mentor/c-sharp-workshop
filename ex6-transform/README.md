@@ -9,8 +9,8 @@ In this exercise, you will design and implement a C# class that performs advance
 
 - Implement the following methods:
   1. `FilterBytesAsync`: 
-     - Accepts a `Func<byte, bool>` predicate.
-     - Uses LINQ to filter the bytes asynchronously based on the predicate and returns a new `List<byte>`.
+     - Accepts a `Func<byte, bool>` delegate.
+     - Uses LINQ to filter the bytes asynchronously based on the delegate and returns a new `List<byte>`.
 
   2. `TransformBytesAsync`:
      - Accepts a `Func<byte, Task<byte>>` delegate.
@@ -26,7 +26,7 @@ In this exercise, you will design and implement a C# class that performs advance
 
 ### Testing
 
-- Implement a comprehensive test suite using NUnit to validate the functionality of the `AdvancedByteProcessor` class.
+- Implement a comprehensive test suite using NUnit (or similar) to validate the functionality of the `AdvancedByteProcessor` class.
 - Write unit tests to cover various scenarios, including edge cases and error handling:
   - Initialization with valid and invalid byte collections.
   - Filtering with different predicates.
