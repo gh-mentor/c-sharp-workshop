@@ -5,6 +5,7 @@ You will be designing, implementing, and testing a simulation of a system, and y
 Consider starting by adding the doc.txt file to the Copilot context, then ask Copilot to provide a high-level plan to implement the simulation. You can then ask Copilot Chat to help you with the implementation of each part of the simulation, and to test it. Additionally, remember to document your progress and any challenges you encounter during the process. You may also want to review the previous workshop materials for additional insights and strategies.
 
 Suggested Prompts:
+- "Given the provided scenario, please provide a project plan to assist in the design of the application. Our environment consists of in-house servers and several client machines running windows 11."
 - "Can you help me design a simulation system based on the requirements in the doc.txt file?"
 - "What are the key components I need to implement for the simulation?"
 - "Can you help me write the code for the simulation system based on the design we discussed?"
