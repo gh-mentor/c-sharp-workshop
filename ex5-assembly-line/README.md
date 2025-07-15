@@ -34,9 +34,5 @@ The goal of this exercise is to implement the `FactoryAssemblyLine` class so tha
    - Run the tests using the NUnit test runner in Visual Studio or your preferred IDE.
    - Ensure all tests pass before submitting your solution.
 
-6. **Additional Notes**:
-   - Use `readonly` for fields that do not change after initialization.
-   - Follow best practices for C# development, including proper use of exceptions, consistent naming conventions, and clean code principles.
 
-Good luck, and happy coding!
 

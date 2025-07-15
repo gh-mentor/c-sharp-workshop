@@ -33,7 +33,7 @@ Instructions and Suggestions
 
 - Design, implement, and test a C# (.NET 6 or greater) simulation model for a manufacturing process using GitHub Copilot as an AI guide and assistant.
 - Consider using GitHub code instructions to influence the suggestions Copilot generates.
-- Use NUnit for creating unit tests.
+- Use NUnit, XUnit, or MSTest for creating unit tests.
 - Use `Task` and `async/await` to simulate the parallel processes of assembly and quality control.
 - Implement a queue to manage the flow of MWs from assembly to quality control.
 - Use a logging library (or create your own) to generate summary reports.

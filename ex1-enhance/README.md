@@ -4,7 +4,7 @@ The code is a simple producer-consumer example using `Task` and `TaskCompletionS
 
 - Separate implementation into appropriate classes and interfaces to follow SOLID principles.
 - Use Copilot Chat to review the code and suggest improvements where necessary, with a focus on best practices and design patterns.
-- Use Copilot Chat to suggest unit tests for the code using a testing framework like xUnit or NUnit.
+- Use Copilot Chat to suggest unit tests for the code using a testing framework such as xUnit, NUnit, or MSTest
 - Build and run the code to ensure it works as expected.
 
 
