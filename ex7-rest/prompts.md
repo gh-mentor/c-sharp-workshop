@@ -18,6 +18,7 @@ Help me understand how to use entity framework with C# to create a data library 
 Help me create POCO classes for the following tables in the inventory database:
 - products, categories, suppliers
 - The entities (Supplier, Category, Product) must be represented as POCOs in namespace DataLibrary and each in defined in a separate file.
+- The schemas for the POCO classes must match the columns defined in the 'DataLibrary/scripts/inventory.sql' script of the DataLibary project.
 
 Help me configure the DbContext to use SQLite based on the following requirements:
 - The class that inherits the DbContext class (InventoryDbContext)  must be defined within the same namespace  as the entity classes (DataLibrary)
