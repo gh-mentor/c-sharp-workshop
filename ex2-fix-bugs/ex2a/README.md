@@ -11,14 +11,12 @@ Here is a challenging C# example with several subtle logic errors. The code appe
 Here’s a recommended folder structure for your .NET project with a separate project for NUnit tests:
 
 ```
-AverageSalaryProject
-├── AverageSalaryProject.sln
+ex2a
 ├── AverageSalaryProject
 │   ├── SalaryCalculator.cs
 │   ├── Employee.cs
 │   └── Program.cs
 ├── AverageSalaryProject.Tests
 │   ├── AverageSalaryTests.cs
-│   └── AverageSalaryProject.Tests.csproj
-└── AverageSalaryProject.csproj
+
 ```
