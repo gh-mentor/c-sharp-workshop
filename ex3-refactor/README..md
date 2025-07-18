@@ -34,7 +34,7 @@ Here are some sample prompts you can use with Copilot to guide you through the r
 ### Refactoring Phase
 
 1. **Scaffolding**:
-   - Help me create a basic structure for a report generation application using the Template Method Pattern. The file main.cpp is contains the monolithic code that needs to be refactored.
+   - Help me create a basic structure for a report generation application using the Template Method Pattern. The file main.cpp contains the monolithic code that needs to be refactored.
 
 2. **RAII**:
    - "Refactor the code to apply RAAI principles: Responsibility, Abstract, Aggregate, Interface."
