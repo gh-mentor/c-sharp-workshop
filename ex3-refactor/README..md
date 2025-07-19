@@ -2,7 +2,7 @@
 
 In this exercise, you will implement and enhance an application that uses the Template Method Pattern. The goal is to understand the pattern, refactor the project to follow best practices, and adhere to SOLID design principles.
 
-## Instructions
+## Objective
 
 1. **Refactor Project Structure**:
    - Organize the project into a well-structured hierarchy.
@@ -29,7 +29,7 @@ Here are some sample prompts you can use with Copilot to guide you through the r
    - "What are some best practices for implementing the Template Method Pattern in C#?"
 
 2. **Scaffolding**:
-   - Help me create a basic folder structure for a report generation application using the Template Method Pattern.  The file main.cpp contains the monolithic code that needs to be refactored.
+   - "Help me create a basic folder structure for a report generation application using the Template Method Pattern.  The file main.cpp contains the monolithic code that needs to be refactored."
 
 3. **Refactoring**:
    - "Help me refactor the existing application to follow best practices for a Template Method Pattern implementation. The response should adhere to SOLID design principles and be structured in accordance with recommended project structuring."
