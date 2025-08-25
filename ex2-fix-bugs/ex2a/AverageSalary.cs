@@ -30,7 +30,8 @@ public class SalaryCalculator
 
     if (!departmentEmployees.Any())
     {
-      throw new InvalidOperationException("No employees found in the specified department");
+        // TODO: Handle the case where there are no employees in the specified department
+        
     }
 
     return departmentEmployees.Average(e => e.Salary);

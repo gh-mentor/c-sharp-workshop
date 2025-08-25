@@ -1,29 +1,8 @@
-# Template Method Pattern Exercise
+Template Method Pattern Exercise
 
 In this exercise, you will implement and enhance an application that uses the Template Method Pattern. The goal is to understand the pattern, refactor the project to follow best practices, and adhere to SOLID design principles.
 
-## Objective
-
-1. **Refactor Project Structure**:
-   - Organize the project into a well-structured hierarchy.
-   - Separate interfaces into their own modules.
-
-2. **Apply SOLID Design Principles**:
-   - Ensure that the code adheres to the Single Responsibility Principle (SRP) by separating concerns.
-   - Implement the Open/Closed Principle (OCP) by allowing new report types to be added without modifying existing code.
-   - Use Dependency Inversion Principle (DIP) to decouple high-level modules from low-level modules.
-
-3. **Write Unit Tests**:
-   - Write unit tests for all public classes and functions.
-
-4. **Documentation**:
-   - Create documentation to explain the Template Method Pattern and how it is used in the application.
-
-## Sample Prompts for Copilot Assistance
-
 Here are some sample prompts you can use with Copilot to guide you through the refactoring and testing phases of this exercise:
-
-### Refactoring Phase
 
 1. **Understanding the Pattern**:
    - "What are some best practices for implementing the Template Method Pattern in C#?"
