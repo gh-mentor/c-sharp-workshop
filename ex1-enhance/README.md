@@ -1,4 +1,9 @@
-The code is a simple producer-consumer example using `Task` and `TaskCompletionSource`. The goal is to improve the design by following best practices.
+The code is a simple producer-consumer example using `Task` and `TaskCompletionSource`. 
+
+The goal is to gain experience using Copilot features effectively.
+
+
+- Use Copilot Agent mode (if available) to create a solution (.sln) for the project.
 
 - Use Copilot to generate a .gitignore file for a C# project.
 
