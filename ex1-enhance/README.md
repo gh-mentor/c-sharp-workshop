@@ -1,6 +1,6 @@
 The code is a simple producer-consumer example using `Task` and `TaskCompletionSource`. 
 
-The goal is to gain experience using Copilot features effectively.
+The goal is to gain experience using Copilot Chat features effectively. Use either Ask or Agent mode if desired.
 
 - Use Copilot to generate a .gitignore file for a C# project.
 
@@ -13,6 +13,7 @@ The goal is to gain experience using Copilot features effectively.
 - Use Copilot Chat to suggest unit tests for the code using a testing framework such as xUnit, NUnit, or MSTest.
 
 - Build and run the code to ensure it works as expected.
+
 
 
 
