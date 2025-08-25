@@ -1,7 +1,6 @@
-﻿@workspace Create a .net solution file to contain the project.
-
-@workspace Help me create a gitignore for this Visual Studio project.
+@workspace Help me create a gitignore for this Visual Studio project. (use Ask or Agent)
 
 @workspace separate implementation into appropriate classes and interfaces to follow SOLID principles. The classes and interfaces should be in namespace 'ProduceConsumer'.
+
 
 @workspace Now update the active document (Program.cs) to use the classes and interfaces in the ProduceConsumer namespace. Remove any redundant code in the active document (Program.cs).
