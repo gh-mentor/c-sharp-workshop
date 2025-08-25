@@ -30,4 +30,3 @@ Here are some sample prompts you can use with Copilot to guide you through the r
    - "The code as written renders output to the console. How can I modify it to allow for different output formats, such as JSON or XML, while still adhering to the Template Method Pattern?"
 
 
-By following these instructions and using the provided prompts, you can refactor the project to adhere to best practices and ensure it is well-documented and testable.
