@@ -2,12 +2,12 @@ Manufacturing Simulation Workshop using GitHub Copilot
 
 In this workshop, you will create a C# (.NET 6 or greater) process simulation model for a manufacturing plant with GitHub Copilot as your AI guide and assistant. The model should be able to simulate the assembly and quality control processes of a manufacturing plant that produces a new brand of AI-enabled Micro Widgets (MWs).
 
-Objective
+Objective:
 
 The overall objective is to create an extensible simulation model that can be used to analyze the performance of a manufacturing process, identify bottlenecks, and optimize resource utilization. The simulation should be able to generate summary reports and metrics for both the assembly and quality control processes. The simulation model should be designed to be flexible and extensible, allowing for future enhancements and modifications. The model should also be able to handle different scenarios and configurations, such as varying the number of assembly lines, QC teams, and inspection rates.
 A complete solution would be able to run daily or weekly simulations.
 
-Key Details
+Key Details:
 
 Assembly Process:
 There are 5 assembly lines operating in parallel Monday – Thursday, 6 hours per workday, starting at 7 AM. The number of Assembly Line Workers is not relevant to the simulation process. There is 1 Assembly Line Manager responsible for delivering assembled products to the QC Team and generating summary reports.
@@ -23,15 +23,16 @@ There are 5 assembly lines operating in parallel Monday – Thursday, 6 hours pe
 - At the end of the workday, the Assembly Line Manager generates a summary report containing the number of assembled MWs per line, the total number delivered to QC, and any line failure details.
 
 Quality Control Process:
+
 There are 5 teams of QC Engineers, each team has 3 members working in parallel Monday – Friday, 8 hours per workday, starting at 8 AM, with a 45-minute lunch break at 12:00 PM. There is 1 Quality Control Manager who is responsible for delegating work in round-robin fashion to each team and generating reports at the end of the workday.
 - Each QC Engineer can inspect and log up to 12 MWs per hour, the average being 8 with a standard deviation of 2.
 - On average, 2.5% of MWs are logged as defective (failed inspection) with a standard deviation of 1%.
 - At the end of the workday, the manager generates a summary report containing the total count of acceptable MWs, total defects, and backlog count.
   - The backlog is the number of MWs that are still in the queue.
 
-Instructions and Suggestions
+Instructions and Suggestions:
 
-- Design, implement, and test a C# (.NET 6 or greater) simulation model for a manufacturing process using GitHub Copilot as an AI guide and assistant.
+- Design, implement, and test a C# simulation model for a manufacturing process using GitHub Copilot as an AI guide and assistant.
 - Consider using GitHub code instructions to influence the suggestions Copilot generates.
 - Use NUnit, XUnit, or MSTest for creating unit tests.
 - Use `Task` and `async/await` to simulate the parallel processes of assembly and quality control.
