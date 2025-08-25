@@ -1,10 +1,10 @@
-# Assembly Line Simulation
+Assembly Line Simulation
 
 In this exercise, you will implement all methods of the `FactoryAssemblyLine` class. The `FactoryAssemblyLine` class is a minimal simulation of an assembly line in a factory. The `tests` folder contains completed NUnit tests that will validate your implementation.
 
 The goal of this exercise is to implement the `FactoryAssemblyLine` class so that all tests pass.
 
-## Instructions
+Instructions
 
 1. **Class Overview**: The `FactoryAssemblyLine` class represents an assembly line with multiple stations. Each station has a unique ID, a processing time, and an active/inactive state.
 
