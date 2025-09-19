@@ -65,8 +65,6 @@ Build a modular, scalable, and secure system that manages bank accounts, process
 
 For full details and breakdowns, see `bank-scenario.md`.
 
-Good luck, and enjoy the challenge!
-
 ---
 
 ## Sample Copilot Prompts (SDLC)
