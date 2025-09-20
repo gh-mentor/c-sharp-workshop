@@ -24,13 +24,13 @@ namespace TestLogger
 
         /// <summary>
         /// Verifies that the log file is created when logging a message.
+        /// NOTE: Uses naive logger (no thread safety, no disposal) on purpose.
         /// </summary>
         [Test]
         public void LogFile_IsCreated_WhenLoggingMessage()
         {
             // Act
             Logger.Instance.Log("Test message");
-            Logger.Instance.Dispose();
 
             // Assert
             Assert.That(File.Exists(LogFileName), Is.True, "Log file should be created after logging a message.");

@@ -1,63 +1,33 @@
 ﻿using System;
 using System.IO;
-using System.Text;
-using System.Threading;
 
 namespace LoggerLib
 {
-  /// <summary>
-  /// Thread-safe singleton logger that writes messages to a log file.
-  /// </summary>
-  public sealed class Logger : IDisposable
+  // NOTE: Intentionally naive implementation for learning exercise.
+  // Students will iteratively improve this based on README prompts.
+  // Current intentional limitations / TODOs:
+  // - Not thread safe (race conditions possible when called from multiple threads)
+  // - No IDisposable / resource management (file handle reopened each call)
+  // - No log levels (Info/Warning/Error)
+  // - No timestamp or formatting
+  // - No configuration of file name or path
+  // - No validation (null/empty message)
+  // - No asynchronous logging
+  // - No dependency injection friendliness
+  // - No XML documentation (left as an exercise)
+  public sealed class Logger
   {
-    private static readonly Lazy<Logger> _instance = new(() => new Logger());
-    private static readonly object _lock = new();
-    private readonly StreamWriter _writer;
-    private bool _disposed;
+    private static Logger _instance;
     private const string LogFileName = "log.txt";
 
-    /// <summary>
-    /// Gets the singleton instance of the Logger.
-    /// </summary>
-    public static Logger Instance => _instance.Value;
+    public static Logger Instance => _instance ??= new Logger();
 
-    private Logger()
-    {
-      _writer = new StreamWriter(LogFileName, append: true, Encoding.UTF8)
-      {
-        AutoFlush = true
-      };
-    }
+    private Logger() { }
 
-    /// <summary>
-    /// Logs a message to the log file in a thread-safe manner.
-    /// </summary>
-    /// <param name="message">The message to log.</param>
     public void Log(string message)
     {
-      if (_disposed) throw new ObjectDisposedException(nameof(Logger));
-      lock (_lock)
-      {
-        _writer.WriteLine(message);
-      }
-    }
-
-    /// <summary>
-    /// Disposes the logger and closes the log file.
-    /// </summary>
-    void IDisposable.Dispose()
-    {
-      Dispose();
-    }
-
-    public void Dispose()
-    {
-      if (_disposed) return;
-      lock (_lock)
-      {
-        _writer.Dispose();
-        _disposed = true;
-      }
+      // Naive append: opens and closes file every call; no error handling.
+      File.AppendAllText(LogFileName, message + Environment.NewLine);
     }
   }
 }
