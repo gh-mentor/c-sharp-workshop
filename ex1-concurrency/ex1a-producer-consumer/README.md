@@ -17,7 +17,7 @@ The goal is to gain experience using Copilot Chat features effectively. Use eith
 Use these prompts (copy/paste or adapt)  using Copilot Chat (Ask or Agent modes). They are grouped by objective. Iterate: first ask for an explanation, then refine or request alternatives.
 
 ### 1. Git & Project Setup
-- "Generate a .gitignore suitable for a .NET 9 C# console project with bin/ obj/ coverage output ignored." 
+- "Generate a .gitignore suitable for a .NET 8 C# console project with bin/ obj/ coverage output ignored." 
 - "Review this .gitignore and tell me if anything is missing for typical C# tooling (Rider, VS, VS Code)." 
 
 ### 2. Understanding the Existing Code

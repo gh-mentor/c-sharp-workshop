@@ -1,7 +1,11 @@
 # Concurrent Data Structures Lab (with Copilot)
 
 ## Lab Goal
-Enhance the C# app in the `Before` folder to closely resemble the working example in the `After` folder. Use GitHub Copilot to help you make each change.
+Enhance the C# app in the `Before` folder to complete the implementation of concurrent data processing. The app should read stock data from a CSV file, process it concurrently using multiple consumer tasks, and support cancellation. 
+
+The sample solution is in the `After` folder.
+
+Use GitHub Copilot to help you make each change.
 
 ---
 
