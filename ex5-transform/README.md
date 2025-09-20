@@ -88,31 +88,109 @@ Use these in order; each step narrows scope, encourages iteration, and demonstra
    Prompt: "Summarize design choices (size guarding strategy, immutability, delegate flexibility) in 4 concise bullets for the README." 
    Goal: Consolidate learning.
 
-Instructor Tip: Encourage students to stop after each step, run tests, and self-assess before moving forward. Discourage combining multiple steps into one broad prompt early on.
+Tip: Stop after each step, run tests, and self-assess before moving forward. Avoid combining multiple steps into one broad prompt early on.
 
 ---
 ### Testing Strategy
-Recommended framework: `xUnit` (but NUnit or MSTest acceptable). Core test categories:
-1. Construction
-  - Null input throws.
-  - Valid list sets `IsValid == true`.
-  - Over limit sets `IsValid == false` and (if Option A) truncates to 1000.
-2. Counting & State
-  - `GetByteCount` matches stored size.
-3. XOR Transform
-  - Sample vector: input `[0x99]`, mask `0x55` => `[0xCC]`.
-  - Identity: mask `0x00` returns original sequence.
-  - Full invert (XOR 0xFF) equals bitwise NOT of original.
-4. Delegate Transform
-  - Inversion lambda `b => (byte)~b` matches XOR 0xFF result.
-  - Custom mapping (e.g., `b => (byte)(b + 1)`).
-  - Null delegate throws.
-5. Empty Input
-  - All transform methods return empty list.
-6. Non‑Mutation Guarantee
-  - Call `Transform` twice; original outputs equal; internal collection unchanged.
+Primary framework for new tests in this workshop: `NUnit` (aligns with global guidelines; adapt easily to xUnit/MSTest if desired). Focus on small, isolated, deterministic tests. Favor clear Arrange / Act / Assert sections and explicit test names that read like specifications (e.g., `Transform_WithMask55_OnSingleByte99_ReturnsCC`).
 
-Optional: Parameterized tests for multiple masks & inputs.
+Core categories and representative cases:
+1. Construction & Validation
+  - Null input throws `ArgumentNullException`.
+  - Valid input within limit sets `IsValid == true`.
+  - Over limit: `IsValid == false`; stored count == 1000 (Option A truncation) and no element beyond index 999 present.
+  - Empty sequence remains valid; count == 0.
+2. Counting & Internal State
+  - `GetByteCount` equals actual stored list count across: empty, boundary (1000), over-limit input.
+3. XOR Transform Behavior
+  - Sample vector: `[0x99]` with mask `0x55` => `[0xCC]`.
+  - Identity mask `0x00` returns deep-equal sequence (reference should differ to ensure non-mutation).
+  - Inversion mask `0xFF` equals per-byte bitwise NOT of original.
+  - Mixed sequence with multiple masks via parameterized test (e.g., `(input, mask, expected)` tuples).
+4. Delegate Transform
+  - Inversion lambda `b => (byte)~b` matches XOR 0xFF results for a randomized sample.
+  - Increment lambda `b => (byte)(b + 1)` wraps correctly (e.g., 0xFF -> 0x00).
+  - Null delegate throws `ArgumentNullException` (assert parameter name if desired).
+5. Empty Input Invariance
+  - Both transform overloads return empty list instances (not null) when factory constructed with empty input.
+6. Non-Mutation & Idempotence Guarantees
+  - Two consecutive `Transform(mask)` calls with same mask yield equal sequences; original internal data remains unchanged (can reflect by calling a different mask afterwards and verifying independence).
+7. Edge & Boundary Conditions
+  - Exactly 1000 bytes: valid.
+  - 1001 bytes: invalid, count reported as 1000, transformation still operates over stored subset.
+8. Determinism & Purity
+  - Repeated calls with same delegate produce identical outputs (value equality, not same reference).
+
+Additional quality techniques:
+- Parameterized tests: Use `TestCase` / `TestCaseSource` to cover multiple (input, mask) combinations compactly.
+- Randomized smoke test (bounded, reproducible with fixed seed) to cross‑verify delegate inversion vs. XOR 0xFF for e.g. 128 random bytes.
+- Negative tests: ensure exceptions are thrown early and do not partially mutate state.
+
+Test naming guidelines:
+- Pattern: `[MethodOrScenario]_[Condition]_[ExpectedOutcome]`.
+- Keep hex values uppercase for readability (e.g., `ReturnsCC`).
+
+Code coverage focus:
+- Aim for 100% of `ByteFactory` methods.
+- Assert both value correctness and structural guarantees (non-mutation, truncation rule).
+
+Performance note (optional):
+- For large (near‑limit) inputs compare allocation between `Transform(mask)` and delegate version—they should be equivalent; streaming variant (if added) reduces allocation by deferring materialization.
+
+---
+### Suggested Testing Prompts for Copilot
+Use these targeted prompts while developing tests. Paste (or paraphrase) them incrementally—avoid over-broad multi‑feature prompts early on.
+
+Foundational Skeleton
+Prompt: "Generate an NUnit test class ByteFactoryTests with setup showing valid, empty, over-limit construction. Only method stubs, no assertions." 
+
+Constructor Edge Cases
+Prompt: "Add NUnit tests verifying ByteFactory throws ArgumentNullException on null source and truncates over-limit input to 1000 while setting IsValid false." 
+
+Counting & State
+Prompt: "Write NUnit tests for GetByteCount covering empty, exactly 1000, and over-limit (1001) inputs. Include assertions for IsValid flag." 
+
+XOR Transform Cases
+Prompt: "Add tests verifying Transform(mask) with inputs [0x99] mask 0x55 => 0xCC, identity mask 0x00 returns original bytes, and mask 0xFF equals bitwise NOT of each byte." 
+
+Delegate Overload
+Prompt: "Create tests for Transform(Func<byte, byte>) including inversion lambda, increment with wrap, and null delegate throwing ArgumentNullException." 
+
+Parameterized Masks
+Prompt: "Introduce NUnit TestCase attributes to cover multiple (inputSequence, mask, expectedHexSequence) scenarios for Transform(byte mask)." 
+
+Non-Mutation Guarantee
+Prompt: "Add a test proving that repeated Transform calls return new list instances and original internal bytes are unchanged." 
+
+Randomized Cross-Check
+Prompt: "Generate a reproducible test (fixed Random seed) comparing results of Transform(0xFF) and Transform(b => (byte)~b) for 128 random bytes." 
+
+Boundary Conditions
+Prompt: "Add tests for exactly 1000 bytes (valid) and 1001 bytes (invalid) ensuring stored count is 1000 and transforms operate on truncated list." 
+
+Documentation Enforcement
+Prompt: "Add XML doc comments to ByteFactory summarizing size limit, truncation behavior, and non-mutation; do not change implementation." 
+
+Refactor for Testability (if design drifts)
+Prompt: "Suggest minimal refactors to ByteFactory to make internal byte list observable only via safe methods while keeping encapsulation." 
+
+Coverage Gap Audit
+Prompt: "List any untested branches or exception paths in ByteFactory and propose new NUnit tests to cover them." 
+
+Performance Exploration (Optional Extension Present)
+Prompt: "Generate a benchmark-style test (not strict perf) comparing Transform(byte) vs. TransformEnumerable(byte) over 1000 bytes counting allocations conceptually in comments." 
+
+Final Review
+Prompt: "Review all ByteFactory tests for redundancy and propose one consolidation using parameterized cases without reducing clarity." 
+
+How to iterate:
+1. Start with skeleton tests.
+2. Add concrete assertions gradually (fail fast mindset).
+3. Introduce parameterization to reduce duplication.
+4. Add randomized (seeded) parity checks last to avoid early noise.
+5. Refactor test names for clarity before final polish.
+
+Use these prompts selectively—each should produce a small, reviewable diff.
 
 ---
 ### Example Usage (Once Implemented)
@@ -124,23 +202,7 @@ List<byte> masked = factory.Transform(0x55);           // XOR each
 List<byte> inverted = factory.Transform(b => (byte)~b); // Custom delegate
 ```
 
----
-### Evaluation Criteria (Rubric)
-- Correctness: All required methods present; tests pass.
-- Robustness: Edge cases (empty, over-limit, null delegate) handled.
-- Readability: Clear naming, `m_` prefix, concise XML docs.
-- Immutability: No unintended mutation of internal list.
-- Extensibility: Delegate design allows varied strategies.
-- Prompt Discipline: Student used progressive refinement (can be evidenced by commit messages or saved prompts).
 
-Stretch Credit: Added streaming or pipeline extensions with tests & documentation.
-
----
-### Next Steps for Learners
-1. Follow the prompt ladder through step 6 to reach a stable MVP.
-2. Run tests after each implementation change.
-3. Add at least one optional extension.
-4. Reflect: Which prompt produced the least useful suggestion? How would you refine it?
 
 
 
