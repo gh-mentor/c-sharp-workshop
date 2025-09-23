@@ -1,8 +1,11 @@
+## .NET MAUI application in Visual Studio with Copilot
+
+Develop a .NET MAUI application in Visual Studio using the default MAUI app template as a modern cross‑platform analogue to WPF. Step through creating, structuring, and testing the solution while reinforcing transferable XAML fundamentals—data binding, INotifyPropertyChanged patterns, commands (ICommand), data templates, control templates, and resource dictionaries. Include guided Copilot prompt usage at each stage to scaffold models, view models, views, and unit tests, ensuring the skills directly map to WPF component development practices.
+
 
 This exercise starts with an empty Visual Studio solution. You will be responsible for adding the recommended projects and implementing changes. Start with a single platform (e.g., Windows) to simplify testing. Once the app works as expected, expand to other platforms.
 
 Use Copilot to assist in completing the application using following steps:
-
 
 1) Generate a JSON array containing 10 rows of sample data. Each row should include the following keys: 
    - employeeID (integer)

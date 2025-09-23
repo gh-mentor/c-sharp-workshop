@@ -6,7 +6,6 @@ General Advice
 4.	Documentation: Document each step as you complete it. This will help you track progress and debug issues more effectively.
 ---
 If you feel overwhelmed, consider combining related steps. For example:
-•	Combine Steps 1 and 2 by generating the JSON data and testing the model in the same project.
-•	Combine Steps 4 and 5 by integrating the model and fetching/displaying data in one go.
+ï¿½	Combine Steps 1 and 2 by generating the JSON data and testing the model in the same project.
+ï¿½	Combine Steps 4 and 5 by integrating the model and fetching/displaying data in one go.
 
-Let me know if you'd like help with any specific step!
