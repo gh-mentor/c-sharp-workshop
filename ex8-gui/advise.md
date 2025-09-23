@@ -9,3 +9,8 @@ If you feel overwhelmed, consider combining related steps. For example:
 �	Combine Steps 1 and 2 by generating the JSON data and testing the model in the same project.
 �	Combine Steps 4 and 5 by integrating the model and fetching/displaying data in one go.
 
+If you want, Copilot can generate:
+
+- Sample Employee model with annotations.
+- BaseViewModel + EmployeeListViewModel shell.
+- EditorConfig starter.
