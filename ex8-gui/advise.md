@@ -10,7 +10,7 @@ If you feel overwhelmed, consider combining related steps. For example:
 �	Combine Steps 4 and 5 by integrating the model and fetching/displaying data in one go.
 
 If you want, Copilot can generate:
-
+- A list of caveats and recommendations for the project as described in the README.
 - Sample Employee model with annotations.
 - BaseViewModel + EmployeeListViewModel shell.
 - EditorConfig starter.
