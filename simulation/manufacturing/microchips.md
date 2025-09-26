@@ -1,4 +1,4 @@
-Manufacturing Simulation Workshop using GitHub Copilot
+## Manufacturing Simulation Workshop using GitHub Copilot
 
 In this workshop, you will create a C# (.NET 6 or greater) process simulation model for a manufacturing plant with GitHub Copilot as your AI guide and assistant. The model should be able to simulate the assembly and quality control processes of a manufacturing plant that produces a new brand of AI-enabled Micro Widgets (MWs).
 
