@@ -2,12 +2,27 @@
 
 ## Exercises
 - **ex1-concurrency**: Introduces concurrency fundamentals—first a simple TaskCompletionSource-based producer/consumer ([ex1-concurrency/ex1a-producer-consumer/README.md](ex1-concurrency/ex1a-producer-consumer/README.md)), then a multi-consumer pipeline using BlockingCollection, result aggregation, and cancellation ([ex1-concurrency/ex1b-concurrent-data-structures/README.md](ex1-concurrency/ex1b-concurrent-data-structures/README.md)).
+---
 - **ex2-calculate**: Refactors naive average salary logic into a decimal-based, validated, test-driven design with clear domain contracts and extensibility prompts ([ex2-calculate/README.md](ex2-calculate/README.md)).
+---
 - **ex3-template-method-pattern**: Demonstrates the Template Method pattern by defining a fixed reporting algorithm with overridable steps for title, headings, rows, and footer ([ex3-template-method-pattern/README..md](ex3-template-method-pattern/README..md)).
+---
 - **ex4-test-singleton**: Progressively hardens a naive singleton logger through phased improvements in testing, thread safety, configurability, DI readiness, error handling, and optional async/log rotation features ([ex4-test-singleton/README.md](ex4-test-singleton/README.md)).
+---
 - **ex5-transform**: Implements a ByteFactory supporting bounded storage, non-mutating XOR and delegate-based byte transformations, thorough NUnit coverage, and guided prompt ladder extensions ([ex5-transform/README.md](ex5-transform/README.md)).
+---
 - **ex6-assembly-line**: Builds an in-memory FactoryAssemblyLine with validated station management, active/inactive tracking, total processing time invariants, and optional cached optimization ([ex6-assembly-line/README.md](ex6-assembly-line/README.md)).
+---
 - **ex7-rest**: Provides an ASP.NET Core Web API (SQLite + EF Core) with inventory domain, Swagger support, and roadmap for testing, pagination, security, and architectural enhancements ([ex7-rest/README.md](ex7-rest/README.md)).
+---
 - **ex8-gui**: Delivers a .NET MAUI MVVM org chart app featuring validation, async data services (mock + HTTP), error resilience, performance considerations, and unit + Appium UI tests ([ex8-gui/README.md](ex8-gui/README.md)).
+---
 - **ex9-wpf**: Legacy WPF Address Book refactor leveraging Copilot to analyze architecture, surface code smells, add validation, async persistence, test coverage, and iterative MVVM improvements ([ex9-wpf/README.md](ex9-wpf/README.md)).
-- **simulation**: Capstone combining advanced banking and manufacturing simulations emphasizing architecture, concurrency, metrics, detection logic, and extensibility ([simulation/banking/README-bank-scenario.md](simulation/banking/README-bank-scenario.md), [simulation/manufacturing/README-chips-scenario.md](simulation/manufacturing/README-chips-scenario.md)).
+---
+- **simulation-healthcare**: Simulates healthcare workflows (patient intake, scheduling, billing) with transactional consistency, concurrency stress tests, and extensibility hooks for HL7/FHIR integration ([simulation/healthcare/README.md](simulation/healthcare/README.md)).
+---
+- **simulation-banking**: Models core retail banking operations (accounts, transfers, reconciliation) emphasizing integrity invariants, fraud detection extension points, and performance benchmarking ([simulation/banking/README.md](simulation/banking/README.md)).
+---
+- **simulation-manufacturing**: Emulates manufacturing process flows (work orders, machine states, throughput analytics) with scheduling strategies and failure injection for resilience testing ([simulation/manufacturing/README.md](simulation/manufacturing/README.md)).
+---
+
