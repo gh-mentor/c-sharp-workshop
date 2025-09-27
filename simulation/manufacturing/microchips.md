@@ -1,85 +1,161 @@
-## Manufacturing Simulation Workshop using GitHub Copilot
+## Manufacturing Simulation Specification
 
-In this workshop, you will create a C# (.NET 6 or greater) process simulation model for a manufacturing plant with GitHub Copilot as your AI guide and assistant. The model should be able to simulate the assembly and quality control processes of a manufacturing plant that produces a new brand of AI-enabled Micro Widgets (MWs).
+Authoritative specification for the manufacturing and quality control simulation. See README-chips-scenario.md for build order and prompts.
 
-Objective:
+---
 
-The overall objective is to create an extensible simulation model that can be used to analyze the performance of a manufacturing process, identify bottlenecks, and optimize resource utilization. The simulation should be able to generate summary reports and metrics for both the assembly and quality control processes. The simulation model should be designed to be flexible and extensible, allowing for future enhancements and modifications. The model should also be able to handle different scenarios and configurations, such as varying the number of assembly lines, QC teams, and inspection rates.
-A complete solution would be able to run daily or weekly simulations.
+### 1. Objective
 
-Key Details:
+Simulate a manufacturing + quality control pipeline across 1..N days producing:
+- Production, damaged units, failures and downtime
+- Inspection throughput, defects, accepted units
+- Backlog (end-of-day and maximum observed)
+- Line utilization and system efficiency
 
-Assembly Process:
-There are 5 assembly lines operating in parallel Monday – Thursday, 6 hours per workday, starting at 7 AM. The number of Assembly Line Workers is not relevant to the simulation process. There is 1 Assembly Line Manager responsible for delivering assembled products to the QC Team and generating summary reports.
-- All lines start at the same time at the beginning of the workday and turn off at the end of the workday.
-- Each line can assemble a maximum of 100 MWs per hour.
-- On average, each line assembles 80 MWs per hour with a standard deviation of 10 MWs.
-- Occasionally, though infrequently, a MW is damaged during assembly, with a likelihood of 0.5%, standard deviation 0.2%.
-  - The damaged product is shelved, and a log entry is recorded with the date/time, line number, and description (default “damaged in production”).
-- At the end of each hour - and at the end of the workday - the Assembly Line Manager delivers the MWs in batch to Quality Control.
-  - A log entry contains the date/time, count of MWs, and line number.
-- There is a 10% likelihood that a line failure will occur during the workday. The downtime is 60 minutes on average, with a standard deviation of 15 minutes.
-  - A log entry with the date/time, line number, and outage duration is recorded.
-- At the end of the workday, the Assembly Line Manager generates a summary report containing the number of assembled MWs per line, the total number delivered to QC, and any line failure details.
+Outputs:
+- Per-day summaries
+- Deterministic results when seed supplied
+- Basic test suite validating core behaviors
 
-Quality Control Process:
+---
 
-There are 5 teams of QC Engineers, each team has 3 members working in parallel Monday – Friday, 8 hours per workday, starting at 8 AM, with a 45-minute lunch break at 12:00 PM. There is 1 Quality Control Manager who is responsible for delegating work in round-robin fashion to each team and generating reports at the end of the workday.
-- Each QC Engineer can inspect and log up to 12 MWs per hour, the average being 8 with a standard deviation of 2.
-- On average, 2.5% of MWs are logged as defective (failed inspection) with a standard deviation of 1%.
-- At the end of the workday, the manager generates a summary report containing the total count of acceptable MWs, total defects, and backlog count.
-  - The backlog is the number of MWs that are still in the queue.
+### 2. Domain Constraints
 
-Instructions and Suggestions:
+Assembly:
+- 5 lines
+- Window: 07:00–13:00 (6 hours = 360 minutes)
+- Base hourly throughput per line: 80 (cap 100)
+- Optional uniform variance: ±10 (if enabled)
+- Damage probability: 0.005 per produced unit (damaged not added to queue)
+- Failure probability per line per day: 0.10 (≤1 failure; fixed 60-minute downtime)
+- Hourly batch delivery at each hour boundary (after first hour) plus final end-of-day delivery
 
-- Design, implement, and test a C# simulation model for a manufacturing process using GitHub Copilot as an AI guide and assistant.
-- Consider using GitHub code instructions to influence the suggestions Copilot generates.
-- Use NUnit, XUnit, or MSTest for creating unit tests.
-- Use `Task` and `async/await` to simulate the parallel processes of assembly and quality control.
-- Implement a queue to manage the flow of MWs from assembly to quality control.
-- Use a logging library (or create your own) to generate summary reports.
-- Encapsulate different components of the simulation using a class-based approach.
-- Use XML documentation comments on all operations to document the code.
-- Adhere to SOLID design principles to ensure maintainability and scalability of the code.
-- All the key details should be incorporated into the final solution.
-- Be creative in the design and implementation of the simulation model.
+Quality Control:
+- 5 teams × 3 engineers
+- Window: 08:00–16:00 (8 hours)
+- Lunch: 12:00–12:45 inclusive (no inspections)
+- Per engineer hourly inspection capacity: 8
+  - Total per-minute capacity = floor((5 * 3 * 8)/60) = 4
+- Defect probability: 0.025 (defective counted; accepted = inspected - defects)
 
-Deliverables Wish List
+Queue:
+- FIFO, unbounded
+- Only populated by assembly batch deliveries
+- QC pulls up to computed capacity per active minute
 
-- An application that can run daily or weekly simulations of the manufacturing process, with the following features:
-  - Assembly process simulation with line failures and downtime.
-  - Quality control process simulation with inspection and defect logging.
-  - Queue management for MWs between assembly and quality control.
-  - Unit tests for all components of the simulation.
-  - Summary reports on assembly and quality control processes (see below for metrics).
+Time Representation:
+- Day simulated as integer minute index 0..1439
+- Multi-day simulation loops per-day; metrics per day isolated then aggregated externally if needed
 
-- Assembly Process Metrics:
-  - Average Downtime per Line: Track the average downtime for each assembly line over the simulation period.
-  - Line Utilization Rate: Calculate the percentage of time each assembly line is operational versus idle or down.
-  - Damaged Product Rate: Measure the percentage of MWs damaged during assembly for each line.
-  - Hourly Production Rate: Track the number of MWs assembled per hour for each line.
-  - Cumulative Production: Total MWs produced by all lines over the simulation period.
-  - Line Failure Frequency: Count the number of failures per line during the simulation.
+---
 
-- Quality Control Metrics:
-  - Inspection Throughput: Measure the number of MWs inspected per hour by each QC team.
-  - Defect Rate per Team: Track the percentage of defective MWs identified by each QC team.
-  - Backlog Growth Rate: Monitor how quickly the backlog grows when inspection cannot keep up with assembly.
-  - Average Inspection Time per MW: Calculate the average time taken to inspect a single MW.
-  - Team Utilization Rate: Measure the percentage of time each QC team is actively inspecting MWs.
+### 3. Models
 
-- Queue Management Metrics:
-  - Average Queue Length: Track the average number of MWs waiting in the queue between assembly and QC.
-  - Maximum Queue Length: Record the peak number of MWs in the queue during the simulation.
-  - Queue Wait Time: Measure the average time an MW spends in the queue before inspection.
+- MicroWidget(Guid Id, int LineId)
+- FailureEvent(int LineId, int StartMinute, int DowntimeMinutes)
+- InspectionResult(Guid WidgetId, bool IsDefective)
+- DailySummary
+  - ProducedPerLine[int]
+  - DamagedPerLine[int]
+  - FailuresPerLine[int]
+  - DowntimeMinutesPerLine[int]
+  - TotalProduced
+  - TotalGoodProduced
+  - TotalInspected
+  - TotalDefects
+  - TotalAccepted
+  - BacklogEndOfDay
+  - MaxQueueLength
+  - LineUtilizationPerLine[double]
+  - SystemEfficiency (double)
 
-- Overall Metrics:
-  - Daily Defect Trends: Track how defect rates change over the course of a day or week.
-  - System Efficiency: Calculate the ratio of MWs successfully inspected to MWs produced.
-  - Resource Utilization: Measure the percentage of time assembly lines and QC teams are actively working versus idle.
-  - End-of-Day Backlog Trends: Analyze how the backlog changes at the end of each day over a week-long simulation.
+---
 
-- Simulation-Based Metrics What-If Analysis:
-  - Simulate alternative scenarios: Use different numbers of assembly lines or QC teams to evaluate their impact on production and backlog.
-  - Bottleneck Identification: Use simulation data to identify the process step (assembly, queue, or QC) with the highest average wait time or lowest throughput.
-  - Optimal Staffing Levels: Calculate the optimal number of QC engineers or assembly lines required to minimize backlog and maximize throughput.
+### 4. Functional Requirements
+
+1. Minute-based simulation loop.
+2. Assembly minute:
+   - If line not failed and inside assembly window: accumulate production toward current hour target.
+   - On hour boundary or assembly end: deliver produced widgets (good only), reset hour counters.
+3. Failure:
+   - Determine at start of day (or earliest assembly minute) if line will fail (probability check).
+   - If failing: apply fixed 60-minute downtime where line produces zero.
+4. Damage classification per produced widget; damaged excluded from queue and counted.
+5. QC minute (within QC window and not lunch):
+   - Dequeue up to capacity; classify each for defect probability.
+6. Track queue length changes; update MaxQueueLength.
+7. End-of-day calculations:
+   - Utilization = (ScheduledMinutes - DowntimeMinutes)/ScheduledMinutes (ScheduledMinutes=360)
+   - SystemEfficiency = TotalAccepted / TotalGoodProduced (0 if TotalGoodProduced = 0)
+
+---
+
+### 5. Non-Functional Requirements
+
+- Deterministic output with fixed seed (single Random source)
+- Single-threaded; no forced parallelism
+- Console reporting (plain text) acceptable
+- XML documentation on public types/members
+- Test suite deterministic (avoid flaky statistical assertions)
+- Clean build (no unused namespaces, minimal warnings)
+
+---
+
+### 6. Acceptance Criteria
+
+- Same seed + config → identical DailySummary data
+- No inspections during lunch (inspection totals unchanged across lunch interval)
+- BacklogEndOfDay > 0 under default configuration
+- Utilization < 1.0 if any line failed; otherwise exactly 1.0
+- Damage count ≤ TotalProduced and TotalGoodProduced = TotalProduced - ΣDamaged
+- Defect count ≤ TotalInspected and TotalAccepted = TotalInspected - TotalDefects
+- MaxQueueLength ≥ BacklogEndOfDay
+- SystemEfficiency computed safely (no divide-by-zero exceptions)
+
+---
+
+### 7. Out of Scope
+
+- Gaussian/normal distributions
+- Variable failure downtime
+- Queue wait time / latency statistics
+- Per-team or per-engineer breakdown metrics
+- Scenario comparison tooling
+- Export formats (CSV/JSON)
+- Event-driven time skipping
+- Advanced probability tolerance validation
+
+---
+
+### 8. Stretch Enhancements (Optional)
+
+- Introduce variance & Gaussian sampling
+- Weekly summary aggregation object
+- Queue latency tracking (enqueue vs inspection minute)
+- Per-team metrics and utilization
+- Multi-scenario runner and comparison report
+- Data export (CSV/JSON)
+
+---
+
+### 9. Testing Outline
+
+- DeterminismTests: duplicate runs comparison
+- LunchBreakTests: inspection count invariant across lunch window
+- BacklogTests: default config yields positive backlog
+- FailureUtilizationTests: forced failure probability → utilization reduction
+- DamageDefectSanityTests: multi-day run produces non-zero damage & defects when probabilities > 0
+
+---
+
+### 10. Execution
+
+dotnet run --project Manufacturing.Simulation -- --days 1 --seed 123
+
+---
+
+### 11. Design Note
+
+Structure (engines + queue + metrics) enables incremental enhancement without reworking the control loop.
+
+---
